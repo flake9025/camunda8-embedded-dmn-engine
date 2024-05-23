@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_08ezrrr" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.22.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <decision id="Decision_1lo23if" name="Dish">
+    <decisionTable id="DecisionTable_172yq31">
+      <input id="Input_1" label="Season">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>season</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Dish" name="dish" typeRef="string" />
+      <rule id="DecisionRule_1err46w">
+        <inputEntry id="UnaryTests_1xvuzlg">
+          <text>"Fall"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g6wd5u">
+          <text>"Spareribs"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19v521u">
+        <inputEntry id="UnaryTests_15hd835">
+          <text>"Winter"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1yu3cbt">
+          <text>"Roastbeef"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xl5brg">
+        <inputEntry id="UnaryTests_1vrc5s0">
+          <text>"Spring"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1yc20vr">
+          <text>"Steak"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0owouhd">
+        <description>Hey, why not ?</description>
+        <inputEntry id="UnaryTests_1udba26">
+          <text>"Summer"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0o2jw59">
+          <text>"Light Salad and a nice Steak"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_1lo23if">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
