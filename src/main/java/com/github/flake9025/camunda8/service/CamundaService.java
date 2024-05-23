@@ -41,6 +41,7 @@ public class CamundaService {
         return parsedDecision;
     }
 
+    @Deprecated(since = "getDecisionExpressions")
     public List<String> getDmnExpressions(ParsedDmnScalaDrg decisionGraph) {
         log.debug("Parsing des expressions du DMN : {} ", decisionGraph.getName());
         return asJavaStream(decisionGraph.getParsedDmn().decisions())
@@ -100,11 +101,11 @@ public class CamundaService {
         return dmnInputKeys;
     }
 
-    private static <T> Stream<T> asJavaStream(scala.collection.Iterable<T> scalaIterable) {
+    public static <T> Stream<T> asJavaStream(scala.collection.Iterable<T> scalaIterable) {
         return asJavaStream(scalaIterable.iterator());
     }
 
-    private static <T> Stream<T> asJavaStream(scala.collection.Iterator<T> scalaIterator) {
+    public static <T> Stream<T> asJavaStream(scala.collection.Iterator<T> scalaIterator) {
         java.util.Iterator<T> javaIterator = JavaConverters.asJavaIterator(scalaIterator);
         Iterable<T> iterable = () -> javaIterator;
         return StreamSupport.stream(iterable.spliterator(), false);
