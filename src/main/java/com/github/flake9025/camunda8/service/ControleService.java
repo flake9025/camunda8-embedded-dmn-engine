@@ -5,6 +5,7 @@ import io.camunda.zeebe.dmn.DecisionEngine;
 import io.camunda.zeebe.dmn.DecisionEvaluationResult;
 import io.camunda.zeebe.dmn.impl.ParsedDmnScalaDrg;
 import io.camunda.zeebe.dmn.impl.VariablesContext;
+import io.camunda.zeebe.protocol.impl.encoding.MsgPackConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.agrona.DirectBuffer;
@@ -33,11 +34,11 @@ public class ControleService {
      * @return
      */
     public List<ResultatControle> jouerControle(ParsedDmnScalaDrg controle, Map<String, Object> dmnVariables) {
-        String codeControle = controle.getName();
-        log.info("Play DMN ... {}", codeControle);
-
         List<ResultatControle> resultats = new ArrayList<>();
         CamundaService.asJavaStream(controle.getParsedDmn().decisions()).forEach(dmnDecision -> {
+            String codeControle = dmnDecision.name();
+            log.info("Play DMN ... {}", codeControle);
+
             // on filtre les variables d'entrée vraiment utilisées par la table de décision
             Map<String, Object> camundaVariables = buildDecisionInputsAndValues(dmnDecision, dmnVariables);
             VariablesContext variablesContext = new VariablesContext(camundaVariables);
@@ -51,7 +52,7 @@ public class ControleService {
                 CollectionUtils.emptyIfNull(dmnDecisionResult.getEvaluatedDecisions()).forEach(evaluatedDecision -> {
                     String key = evaluatedDecision.decisionName();
                     DirectBuffer buffer = evaluatedDecision.decisionOutput();
-                    String value = new String(buffer.byteArray());
+                    String value = MsgPackConverter.convertToJson(buffer).replace("\"", "");
                     log.info("result : [{}, {}]", key, value);
                     dmnOutputVariables.put(key, value);
                 });

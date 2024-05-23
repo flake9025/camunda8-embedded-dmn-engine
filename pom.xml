@@ -46,6 +46,11 @@
 			<artifactId>zeebe-dmn</artifactId>
 			<version>${camunda.platform.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>io.camunda</groupId>
+			<artifactId>zeebe-protocol-impl</artifactId>
+			<version>${camunda.platform.version}</version>
+		</dependency>
 
 		<!-- apache commons -->
 		<dependency>
