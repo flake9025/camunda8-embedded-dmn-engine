@@ -1,3 +1,7 @@
-# camunda8-embedded-dmn-engine
+# Camunda 8 Embedded DMN Engine
 
-Camunda 8 Proof of Concept with Embedded DMN Engine ( like Camunda 7 )
+Proof of Concept of Spring Boot 3 / JDK21 with Embedded Camunda 8 DMN Engine, like we used to do with Camunda 7.
+
+# Usage
+
+See sample : src/test/java/com/github/flake9025/camunda8/service/ControleServiceTest.java
