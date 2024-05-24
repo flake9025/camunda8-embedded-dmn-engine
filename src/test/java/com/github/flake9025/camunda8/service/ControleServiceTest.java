@@ -34,6 +34,17 @@ class ControleServiceTest {
         donnees.put("season", "Fall");
         List<ResultatControle> results = controleService.jouerControle(controle, donnees);
         Assertions.assertThat(results).hasSize(1);
-        Assertions.assertThat(results.get(0).getVariablesSortie().get("Dish")).isEqualTo("Spareribs");
+        Assertions.assertThat(results.get(0).getVariablesSortie().get("dish")).isEqualTo("Spareribs");
+    }
+
+    @Test
+    void jouerControle_DishWithComments() throws IOException {
+        ParsedDmnScalaDrg controle = getControleFromResourcesByCode("DishWithComments");
+        Map<String, Object> donnees = new HashMap<>();
+        donnees.put("season", "Fall");
+        List<ResultatControle> results = controleService.jouerControle(controle, donnees);
+        Assertions.assertThat(results).hasSize(1);
+        Assertions.assertThat(results.get(0).getVariablesSortie().get("dish")).isEqualTo("Spareribs");
+        Assertions.assertThat(results.get(0).getVariablesSortie().get("comments")).isEqualTo("Good for fall !");
     }
 }

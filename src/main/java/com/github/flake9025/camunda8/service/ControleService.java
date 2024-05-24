@@ -35,7 +35,7 @@ public class ControleService {
      */
     public List<ResultatControle> jouerControle(ParsedDmnScalaDrg controle, Map<String, Object> dmnVariables) {
         List<ResultatControle> resultats = new ArrayList<>();
-        CamundaService.asJavaStream(controle.getParsedDmn().decisions()).forEach(dmnDecision -> {
+        camundaService.asJavaStream(controle.getParsedDmn().decisions()).forEach(dmnDecision -> {
             String codeControle = dmnDecision.name();
             log.info("Play DMN ... {}", codeControle);
 
@@ -50,11 +50,11 @@ public class ControleService {
             Map<String, Object> dmnOutputVariables = new HashMap<>();
             if(!dmnDecisionResult.isFailure()) {
                 CollectionUtils.emptyIfNull(dmnDecisionResult.getEvaluatedDecisions()).forEach(evaluatedDecision -> {
-                    String key = evaluatedDecision.decisionName();
                     DirectBuffer buffer = evaluatedDecision.decisionOutput();
-                    String value = MsgPackConverter.convertToJson(buffer).replace("\"", "");
-                    log.info("result : [{}, {}]", key, value);
-                    dmnOutputVariables.put(key, value);
+                    String jsonValue = MsgPackConverter.convertToJson(buffer);
+                    Map<String, Object> results = camundaService.buildResults(dmnDecision, jsonValue);
+                    log.info("result : {}", results);
+                    dmnOutputVariables.putAll(results);
                 });
             } else {
                 log.error(dmnDecisionResult.getFailureMessage());

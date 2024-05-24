@@ -32,6 +32,7 @@ class CamundaServiceTest {
                 .hasSize(9)
                 .containsExactly("season", "\"Fall\"", "\"Spareribs\"", "\"Winter\"", "\"Roastbeef\"", "\"Spring\"", "\"Steak\"", "\"Summer\"", "\"Light Salad and a nice Steak\"");
     }
+
     @Test
     void getDmnVariablesKeys_shouldGetDish_Keys() throws IOException {
         ParsedDmnScalaDrg decisionGraph = getDmnDecisionGraph("Dish");
@@ -41,6 +42,24 @@ class CamundaServiceTest {
         Assertions.assertThat(dmnUsedKeys)
                 .hasSize(1)
                 .containsExactly("season");
+    }
+
+    @Test
+    void getDecisionOutputNames() throws IOException {
+        ParsedDmnScalaDrg decisionGraph = getDmnDecisionGraph("Dish");
+        List<String> outputNames = camundaService.getDecisionOutputNames(decisionGraph.getParsedDmn().decisions().iterator().next());
+        Assertions.assertThat(outputNames)
+                .hasSize(1)
+                .containsExactly("dish");
+    }
+
+    @Test
+    void getDecisionOutputNames2() throws IOException {
+        ParsedDmnScalaDrg decisionGraph = getDmnDecisionGraph("DishWithComments");
+        List<String> outputNames = camundaService.getDecisionOutputNames(decisionGraph.getParsedDmn().decisions().iterator().next());
+        Assertions.assertThat(outputNames)
+                .hasSize(2)
+                .containsExactly("dish", "comments");
     }
 
     private ParsedDmnScalaDrg getDmnDecisionGraph(String key) throws IOException {
