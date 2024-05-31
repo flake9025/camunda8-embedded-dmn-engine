@@ -7,7 +7,7 @@ This project uses Maven, Spring Boot 3 / JDK21.
 The use case is the DMN sample from Camunda tutorial : https://camunda.com/dmn/
 
 | U | Input   | Output                       | Annotation      |
-|-------------|------------------------------|-----------------|
+|---|---------|------------------------------|-----------------|
 | 1 | Fall    | Spareribs                    |                 |
 | 2 | Winter  | Roastbeef                    |                 | 
 | 3 | Spring  | Steak                        |                 | 
